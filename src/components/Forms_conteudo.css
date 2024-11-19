@@ -1,0 +1,92 @@
+
+.form-content{
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-transform: capitalize;
+    margin-bottom: 30px;
+    color:#830c0c;
+    text-align: left;
+  }
+  .div_file{
+    position:relative;
+    width: 100%;
+    height:80px;
+    padding: 0.75rem;
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center;
+   }
+  .form_input_file{
+    all:unset;
+    opacity:0;
+    width: 100%;
+    height:100%;
+  }
+
+  
+  .form_input,
+  textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+     margin-bottom: 1.5rem;
+  }
+  
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  .form_input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: black;
+  }
+  
+  .submit-button {
+    width: 30%;
+    padding: 1rem;
+    background-color: #df0000 ;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+  }
+  
+  .submit-button:hover {
+    background-color: #5a0d0d;
+  }
+  
+  @media (max-width: 640px) {
+    .recipe-form {
+      padding: 1rem;
+    }
+  
+  }
+@media (max-width: 440px) {
+    .form_input,
+  textarea {
+    font-size: 0,5rem;
+  }
+  .submit-button {
+    font-size: 0,5rem;
+    width: 30%
+  }
+  
+  }

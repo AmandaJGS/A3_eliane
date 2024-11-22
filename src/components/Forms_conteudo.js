@@ -86,11 +86,11 @@ function Forms_Conteudo() {
     return (
         <div className='form-content' >
             <form className="recipe-form" onSubmit={Forms_Conteudo}>
-                <div className='div_file'>
+                 {/* <div className='div_file'>
                     clique para upload!
                     <input className='form_input_file'  type="file" id="file" name="file" required></input>
 
-                </div>
+                </div>  */}
                 <label htmlFor="tipo">Nome da Receita:</label>
                 <input className='form_input' value={FormData.nome_prato} onChange={handleChange} type="text" id="name" name="name" required />
 

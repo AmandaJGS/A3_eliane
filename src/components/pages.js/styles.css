@@ -1,0 +1,42 @@
+.container_home{
+    display:flex;
+    justify-content: center; 
+    border-width: 2px 0px;
+    border-color: rgb(218, 215, 215);
+    text-align: left;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+}
+.conteudo{
+    width: 50%;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.foto1{
+    width: 90%;
+    height:100%;
+    margin:auto;
+    
+}
+
+
+h1{
+    text-transform: capitalize;
+    font-size: 20px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+@media (max-width: 768px){
+    .container_home{
+        display: block;
+        justify-content: center;
+    }
+    .conteudo{
+        width: 100%;
+    }
+    .foto1{
+        width: 100%;
+    }
+}
+

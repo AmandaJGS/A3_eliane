@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import { Link, useNavigate } from "react-router-dom"; // Importando useNavigate para redirecionamento
 import SCLOGO from "../../assets/img/sc-logo.png";
 
@@ -11,8 +11,8 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const email = e.target.email.value;
-    const senha = e.target.password.value;
+    const user_email = e.target.email.value;
+    const user_senha = e.target.password.value;
 
     try {
         const response = await fetch("https://api-a3-eliane.vercel.app/api/login", {
@@ -21,8 +21,8 @@ const Signin = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                user_email: email,
-                user_senha: senha,
+                user_email: user_email,
+                user_senha: user_senha,
             }),
         });
 
@@ -33,9 +33,15 @@ const Signin = () => {
         }
 
         console.log('Login bem-sucedido:', data);
-        // Aqui você pode redirecionar para outra página ou armazenar o token
+        // Armazenar o token JWT no localStorage
+        localStorage.setItem('token', data.token);
+
+        // Redirecionar para a home page após o login bem-sucedido
+        navigate('/home'); // Ajuste para o caminho da sua página inicial
+
     } catch (error) {
         console.error('Erro ao tentar fazer login:', error);
+        setError('Email ou senha inválidos');
     }
 };
 

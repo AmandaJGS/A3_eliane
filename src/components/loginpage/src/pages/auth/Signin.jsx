@@ -88,7 +88,7 @@ const Signin = () => {
           {error && <p className="error-message">{error}</p>}
           <div className="flex-end">
             <Link to={"/auth/forgot-password"} className="link-end">
-              Esquecesu a senha?
+              Esqueceu a senha?
             </Link>
           </div>
           <button type="submit" className="btn-submit">

@@ -2,46 +2,44 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  Redirect,
+  Routes, // Alteração: usamos Routes no lugar de Switch
+  Navigate, // Alteração: substituímos Redirect por Navigate
 } from "react-router-dom";
 import { adminRoutes, authRoutes } from "./routes/routes";
 import Authlayout from "./layout/Authlayout";
 import Adminlayout from "./layout/Adminlayout";
-// Multi-layout function
-const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (
-      <Layout>
-        <Component {...props}></Component>
-      </Layout>
-    )}
-    exact
-  ></Route>
-);
+
 function App() {
   return (
     <Router>
-      <Switch>
+      <Routes> {/* Alteração: usamos Routes em vez de Switch */}
+        {/* Rotas de autenticação */}
         {authRoutes.map((route, idx) => (
-          <AppRoute
+          <Route
             key={idx}
             path={route.path}
-            component={route.component}
-            layout={Authlayout}
+            element={
+              <Authlayout>
+                <route.component />
+              </Authlayout>
+            }
           />
         ))}
+        {/* Rotas de administração */}
         {adminRoutes.map((route, idx) => (
-          <AppRoute
+          <Route
             key={idx}
             path={route.path}
-            component={route.component}
-            layout={Adminlayout}
+            element={
+              <Adminlayout>
+                <route.component />
+              </Adminlayout>
+            }
           />
         ))}
-        <Redirect strict from="/" to="/auth/signin" />
-      </Switch>
+        {/* Redirecionamento */}
+        <Route path="/" element={<Navigate to="/auth/signin" />} />
+      </Routes>
     </Router>
   );
 }

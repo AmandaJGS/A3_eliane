@@ -87,7 +87,7 @@ const Signin = () => {
           </div>
           {error && <p className="error-message">{error}</p>}
           <div className="flex-end">
-            <Link to={"/auth/forgot-password"} className="link-end">
+            <Link to={"/auth/forgotpassword"} className="link-end">
               Esqueceu a senha?
             </Link>
           </div>

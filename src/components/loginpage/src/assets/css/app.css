@@ -282,8 +282,10 @@ select:disabled {
 [type="reset"],
 [type="submit"],
 button {
-  -webkit-appearance: button;
+  -webkit-appearance: button; /* Para navegadores WebKit (Safari, Chrome) */
+  appearance: button;         /* Para navegadores modernos */
 }
+
 [type="button"]:not(:disabled),
 [type="reset"]:not(:disabled),
 [type="submit"]:not(:disabled),
@@ -333,8 +335,10 @@ legend + * {
 }
 [type="search"] {
   outline-offset: -2px;
-  -webkit-appearance: textfield;
+  -webkit-appearance: textfield; /* Para navegadores WebKit */
+  appearance: textfield;         /* Para navegadores modernos */
 }
+
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }

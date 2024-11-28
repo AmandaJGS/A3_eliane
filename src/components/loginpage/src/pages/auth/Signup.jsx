@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react"; 
-import { Link, useNavigate } from "react-router-dom"; // Importando useNavigate para redirecionamento
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SCLOGO from "../../assets/img/sc-logo.png";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState(""); // Estado para o nome
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Hook para navegação
+  const navigate = useNavigate();
 
-  // Verifica se o usuário já está logado
   useEffect(() => {
-    const token = localStorage.getItem('token'); // Verifica se existe um token
+    const token = localStorage.getItem('token');
     if (token) {
-      navigate('/home'); // Se o token existir, redireciona para a home
+      navigate('/home');
     }
   }, [navigate]);
 
@@ -21,34 +21,34 @@ const Signup = () => {
 
     const user_email = e.target.email.value;
     const user_senha = e.target.password.value;
+    const user_nome = e.target.name.value;
 
     try {
-        const response = await fetch("https://api-a3-eliane.vercel.app/api/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                user_email: user_email,
-                user_senha: user_senha,
-            }),
-        });
+      const response = await fetch("https://api-a3-eliane.vercel.app/api/create/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_email,
+          user_senha,
+          user_nome,
+        }),
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(data.message || 'Erro ao tentar criar a conta');
-        }
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro ao tentar criar a conta');
+      }
 
-        console.log('Conta criada com sucesso:', data);
-        // Redirecionar para a tela de login após o signup bem-sucedido
-        navigate('/auth/signin');
-
+      console.log('Conta criada com sucesso:', data);
+      navigate('/auth/signin');
     } catch (error) {
-        console.error('Erro ao tentar criar a conta:', error);
-        setError('Erro ao criar a conta');
+      console.error('Erro ao tentar criar a conta:', error);
+      setError('Erro ao criar a conta');
     }
-};
+  };
 
   return (
     <React.Fragment>
@@ -61,6 +61,20 @@ const Signup = () => {
       </div>
       <div className="auth-body">
         <form onSubmit={handleSubmit} className="auth-form-validation">
+          <div className="input-field">
+            <label htmlFor="name" className="input-label">
+              Nome Completo
+            </label>
+            <input
+              type="text"
+              className="input-control"
+              id="name"
+              placeholder="Seu nome"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
           <div className="input-field">
             <label htmlFor="email" className="input-label">
               Endereço de Email
@@ -106,4 +120,4 @@ const Signup = () => {
   );
 };
 
-export default Signup
+export default Signup;

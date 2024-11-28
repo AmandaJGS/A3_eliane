@@ -1,90 +1,66 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Importando useNavigate
-import { v4 as uuidv4 } from "uuid"; // Importa a biblioteca para gerar UUID
+import React, { useState, useEffect } from "react"; 
+import { Link, useNavigate } from "react-router-dom"; // Importando useNavigate para redirecionamento
 import SCLOGO from "../../assets/img/sc-logo.png";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [nome, setNome] = useState("");
-  const navigate = useNavigate(); // Usando useNavigate para navegação programática
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // Hook para navegação
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-  
-    const userId = uuidv4();
-    const userImg = "https://via.placeholder.com/150";
-  
-    const userData = {
-      user_id: userId,
-      user_email: email,
-      user_nome: nome,
-      user_senha: password,
-      user_img: userImg,
-    };
-  
-    try {
-      const response = await fetch("https://api-a3-eliane.vercel.app/api/create/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-  
-      // Verifica se a resposta é bem-sucedida
-      if (!response.ok) {
-        const errorText = await response.text(); // Tenta pegar o texto do erro
-        throw new Error(`Erro da API: ${response.status} - ${errorText}`);
-      }
-  
-      // Tenta converter a resposta para JSON
-      let result;
-      try {
-        result = await response.json();
-      } catch (error) {
-        throw new Error("Resposta inesperada da API: não é um JSON.");
-      }
-  
-      console.log("Usuário cadastrado com sucesso:", result);
-      alert("Cadastro realizado com sucesso!");
-
-      // Navega para a página de login após o cadastro
-      navigate("/auth/signin"); // Redireciona para o login
-      
-    } catch (error) {
-      console.error("Erro na requisição:", error.message || error);
-      alert("Erro ao cadastrar: " + (error.message || "Erro desconhecido."));
+  // Verifica se o usuário já está logado
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Verifica se existe um token
+    if (token) {
+      navigate('/home'); // Se o token existir, redireciona para a home
     }
-  };
+  }, [navigate]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const user_email = e.target.email.value;
+    const user_senha = e.target.password.value;
+
+    try {
+        const response = await fetch("https://api-a3-eliane.vercel.app/api/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user_email: user_email,
+                user_senha: user_senha,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Erro ao tentar criar a conta');
+        }
+
+        console.log('Conta criada com sucesso:', data);
+        // Redirecionar para a tela de login após o signup bem-sucedido
+        navigate('/auth/signin');
+
+    } catch (error) {
+        console.error('Erro ao tentar criar a conta:', error);
+        setError('Erro ao criar a conta');
+    }
+};
 
   return (
     <React.Fragment>
       <div className="auth-header">
         <div className="auth-header-logo">
-          <img src={SCLOGO} alt="" className="auth-header-logo-img" />
+          <img src={SCLOGO} alt="Logo" className="auth-header-logo-img" />
         </div>
-        <h1 className="auth-header-title">Cadastro</h1>
-        <p className="auth-header-subtitle">
-          Crie sua conta para começar
-        </p>
+        <h1 className="auth-header-title">Crie sua conta</h1>
+        <p className="auth-header-subtitle">Preencha os campos abaixo</p>
       </div>
       <div className="auth-body">
-        <form className="auth-form-validation" onSubmit={handleSignup}>
-          <div className="input-field">
-            <label htmlFor="nome" className="input-label">
-              Nome Completo
-            </label>
-            <input
-              type="text"
-              className="input-control"
-              id="nome"
-              placeholder="Seu nome completo"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              required
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="auth-form-validation">
           <div className="input-field">
             <label htmlFor="email" className="input-label">
               Endereço de Email
@@ -93,7 +69,8 @@ const Signup = () => {
               type="email"
               className="input-control"
               id="email"
-              placeholder="examplo@gmail.com"
+              placeholder="example@gmail.com"
+              autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -105,16 +82,17 @@ const Signup = () => {
             </label>
             <input
               type="password"
-              id="password"
               className="input-control"
+              id="password"
               placeholder="Senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
+          {error && <p className="error-message">{error}</p>}
           <button type="submit" className="btn-submit">
-            Cadastrar
+            Criar Conta
           </button>
         </form>
         <p className="text-center">
@@ -128,4 +106,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup

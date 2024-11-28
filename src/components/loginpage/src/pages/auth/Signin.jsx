@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import { Link, useNavigate } from "react-router-dom"; // Importando useNavigate para redirecionamento
 import SCLOGO from "../../assets/img/sc-logo.png";
 
@@ -7,6 +7,14 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Hook para navegação após login bem-sucedido
+
+  // Verifica se o usuário está logado no localStorage
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Verifica se existe um token
+    if (token) {
+      navigate('/home'); // Se o token existir, redireciona para a home
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

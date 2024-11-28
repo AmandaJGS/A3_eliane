@@ -22,9 +22,9 @@ function Navbar() {
             <div className="header">
                 <Link to="/"><img className="logo" src={logo} alt="logo" /></Link>
                 <ul className="menu">
-                    <li className="menuMobile"><Link to='/'><House size={25} /></Link></li>
+                    <li className="menuMobile"><Link to='/home'><House size={25} /></Link></li>
                     <li className="menuMobile"><Link to='/pesquisa'><Search size={25} /></Link></li>
-                    <li className="menuDesktop"><Link className="Nav_link" to='/' >Home</Link></li>
+                    <li className="menuDesktop"><Link className="Nav_link" to='/home' >Home</Link></li>
                     <li className="menuDesktop"><Link className="Nav_link" to='/pesquisa' >Receitas</Link></li>
                     <li className="menuDesktop"><button className="Nav_link" onClick={handleLogout}>Sair</button></li>
                 </ul>

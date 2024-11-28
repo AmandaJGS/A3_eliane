@@ -1,3 +1,4 @@
+import './Cards.css'; // Importando o arquivo CSS
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ProjectCards from './ProjectCards'

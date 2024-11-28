@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ForgotImg from "../../assets/img/vector/forgot-password.png";
 
 const ForgotPassword = () => {
-  const navigate = useNavigate(); // Hook para navegar entre as páginas
+  const navigate = useNavigate(); // Hook para navegação entre as páginas
+
+  // Verifica se o usuário está logado
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Verifica se existe um token
+    if (token) {
+      navigate('/home'); // Se o token existir, redireciona para a home
+    }
+  }, [navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

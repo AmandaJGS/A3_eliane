@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import './App.css';
 import Signin from './components/loginpage/src/pages/auth/Signin.jsx';
 import Signup from './components/loginpage/src/pages/auth/Signup.jsx';
 import ForgotPassword from './components/loginpage/src/pages/auth/ForgotPassword.jsx';
@@ -9,6 +8,7 @@ import Navbar from './components/layout/Navbar';
 import Revenue from './components/Revenue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PrivateRoute from './components/loginpage/src/routes/PrivateRoute';
+import Authlayout from "./components/loginpage/src/layout/Authlayout";  // Importando o Authlayout
 
 function App() {
   return (
@@ -19,21 +19,21 @@ function App() {
 }
 
 function AppRoutes() {
-  const location = useLocation(); // Aqui é onde usamos o hook useLocation
-
+  const location = useLocation(); // Usando useLocation para controle da Navbar
+  
   return (
     <>
       {/* Verifica se a rota não é '/auth/signin' e renderiza a Navbar */}
       {location.pathname !== '/auth/signin' && <Navbar />}
-
+      
       <Routes>
         {/* Página inicial redirecionada para /auth/signin */}
         <Route path="/" element={<Navigate to="/auth/signin" />} />
         
-        {/* Página de login */}
-        <Route path="/auth/signin" element={<Signin />} />
-        <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/auth/forgotpassword" element={<ForgotPassword />} />
+        {/* Rotas de autenticação com Authlayout */}
+        <Route path="/auth/signin" element={<Authlayout><Signin /></Authlayout>} />
+        <Route path="/auth/signup" element={<Authlayout><Signup /></Authlayout>} />
+        <Route path="/auth/forgotpassword" element={<Authlayout><ForgotPassword /></Authlayout>} />
         
         {/* Rotas protegidas com PrivateRoute */}
         <Route path="/home" element={<PrivateRoute> <Home /> </PrivateRoute>} />

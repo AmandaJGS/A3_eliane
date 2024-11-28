@@ -57,7 +57,7 @@ const Signup = () => {
           <img src={SCLOGO} alt="Logo" className="auth-header-logo-img" />
         </div>
         <h1 className="auth-header-title">Crie sua conta</h1>
-        <p className="auth-header-subtitle">Preencha os campos abaixo</p>
+        <p className="auth-header-subtitle">Preeencha os campos abaixo</p>
       </div>
       <div className="auth-body">
         <form onSubmit={handleSubmit} className="auth-form-validation">

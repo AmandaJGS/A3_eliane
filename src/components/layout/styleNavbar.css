@@ -4,6 +4,11 @@ img {
   margin-left: 20px;
 }
 
+.button_nav{
+  all:unset;
+  color:black;
+}
+
 .header {
   width: 100%;
   display: flex;

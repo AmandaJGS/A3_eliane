@@ -26,7 +26,7 @@ function Navbar() {
                     <li className="menuMobile"><Link to='/pesquisa'><Search size={25} /></Link></li>
                     <li className="menuDesktop"><Link className="Nav_link" to='/home' >Home</Link></li>
                     <li className="menuDesktop"><Link className="Nav_link" to='/pesquisa' >Receitas</Link></li>
-                    <li className="menuDesktop"><button className="Nav_link" onClick={handleLogout}>Sair</button></li>
+                    <li className="menuDesktop"><button className="button_nav" onClick={handleLogout}>Sair</button></li>
                 </ul>
             </div>
         </div>
